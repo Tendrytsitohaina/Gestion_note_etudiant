@@ -14,19 +14,23 @@ export default function LoginPage() {
   const toast = useToast();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const res = await axios.post(`${API_URL}/api/login`, form);
-      login(res.data.user, res.data.token);
-      toast(`Bienvenue, ${res.data.user.nom} !`, 'success');
-      navigate('/');
-    } catch (err) {
-      toast(err.response?.data?.message || 'Erreur de connexion', 'error');
-    } finally {
-      setLoading(false);
-    }
-  };
+  e.preventDefault();
+  setLoading(true);
+  try {
+    const res = await axios.post(`${API_URL}/api/login`, form);
+    login(res.data.user, res.data.token);
+    toast(`Bienvenue, ${res.data.user.nom} !`, 'success');
+    navigate('/');
+  } catch (err) {
+    const msg = err.response?.data?.message 
+      || err.message 
+      || 'Erreur inconnue';
+    toast(`Erreur: ${msg}`, 'error');
+    console.error('Login error:', err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
