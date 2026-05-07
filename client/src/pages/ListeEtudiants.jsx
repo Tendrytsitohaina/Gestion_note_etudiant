@@ -76,7 +76,7 @@ export default function ListeEtudiants() {
       />
 
       {/* En-tête */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:mt-2 items-center justify-between mb-6 gap-2">
         <div>
           <h2 className="text-xl font-bold text-slate-800 tracking-tight">
             Liste des étudiants
@@ -85,7 +85,7 @@ export default function ListeEtudiants() {
             {filtered.length} étudiant(s) enregistré(s)
           </p>
         </div>
-        <div className="relative mb-4">
+        <div className="order-3 sm:order-2 relative ">
           <svg
             className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"
             fill="none"
@@ -109,7 +109,7 @@ export default function ListeEtudiants() {
           {search && (
             <button
               onClick={() => setSearch("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-500 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-500 transition-colors"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path
@@ -123,7 +123,7 @@ export default function ListeEtudiants() {
         </div>
         <button
           onClick={() => navigate("/ajout")}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm"
+          className="order-3 sm:order-2 flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors shadow-sm"
         >
           <svg
             className="w-4 h-4"
@@ -142,8 +142,7 @@ export default function ListeEtudiants() {
         </button>
       </div>
 
-      {/* Tableau */}
-      <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-scroll">
         {loading ? (
           <div className="py-20 text-center text-slate-400 text-sm">
             Chargement...
@@ -151,7 +150,7 @@ export default function ListeEtudiants() {
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-100">
+              <tr className="bg-slate-200 border-b border-slate-200">
                 {[
                   "Matricule",
                   "Nom complet",
@@ -169,7 +168,7 @@ export default function ListeEtudiants() {
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50">
+            <tbody className="divide-y divide-slate-100">
               {filtered.length > 0 ? (
                 filtered.map((e) => (
                   <tr
