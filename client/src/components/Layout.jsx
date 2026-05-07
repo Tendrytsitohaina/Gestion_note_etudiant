@@ -2,6 +2,7 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../components/ToastProvider";
 import { useState } from "react";
+import ConfirmDialog from "./ConfirmDialog";
 
 const navItems = [
   {
@@ -65,6 +66,7 @@ export default function Layout() {
   const navigate = useNavigate();
   const toast = useToast();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [lougoutDialog, setLogoutDialog] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -142,6 +144,14 @@ export default function Layout() {
 
   return (
     <div className="flex flex-col h-screen bg-slate-50">
+      <ConfirmDialog 
+        isOpen={lougoutDialog}
+        message={'Voulez-vous vraiment se déconnecter?'}
+        onCancel={()=>setLogoutDialog(false)}
+        onConfirm={()=>handleLogout()}
+        title={"Se déconnecter"}
+        type="logout"
+      />
       <header className="h-16 bg-gradient-to-r from-slate-900 to-slate-700 flex items-center justify-between px-6 shadow-lg z-10">
         <div className="flex items-center gap-3">
           <button
@@ -217,7 +227,7 @@ export default function Layout() {
             {user?.nom?.charAt(0).toUpperCase()}
           </div>
           <button
-            onClick={handleLogout}
+            onClick={()=>setLogoutDialog(true)}
             className={`flex items-center gap-1 text-red-400 hover:text-white text-xs transition-colors ml-1 ${sidebarOpen? '' : 'bg-red-200/10 p-2 rounded-full'}`}
           >
             <svg
