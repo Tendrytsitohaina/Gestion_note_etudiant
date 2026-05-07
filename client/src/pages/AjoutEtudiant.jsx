@@ -48,7 +48,7 @@ export default function AjoutEtudiant() {
             <label className={labelClass}>Numéro RT (Matricule)</label>
             <input
               className={inputClass}
-              placeholder="ex: RT-2024-001"
+              placeholder="ex: ETU001"
               value={etudiant.numRt}
               onChange={(e) => setEtudiant({ ...etudiant, numRt: e.target.value })}
               required
