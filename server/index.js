@@ -8,7 +8,11 @@ const { authenticateToken, requireAdmin } = require('./middleware/auth');
 const app = express();
 const SECRET = process.env.JWT_SECRET || 'gestnote_secret_2025';
 
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // ─── AUTH ────────────────────────────────────────────────
