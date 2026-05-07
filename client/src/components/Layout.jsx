@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/static-components */
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../components/ToastProvider";
