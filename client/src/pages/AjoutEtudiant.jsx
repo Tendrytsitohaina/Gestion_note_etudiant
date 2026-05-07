@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useToast } from '../components/ToastProvider';
 import axios from 'axios';
 import API_URL from '../config';
+import { useNavigate } from 'react-router-dom';
 
 export default function AjoutEtudiant() {
   const [etudiant, setEtudiant] = useState({ numRt: '', nom: '', note_math: '', note_phys: '' });
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,6 +17,7 @@ export default function AjoutEtudiant() {
       await axios.post(`${API_URL}/api/etudiant`, etudiant);
       toast('Étudiant ajouté avec succès !', 'success');
       setEtudiant({ numRt: '', nom: '', note_math: '', note_phys: '' });
+      navigate('/liste')
     } catch {
       toast("Erreur : le matricule existe peut-être déjà.", 'error');
     } finally {

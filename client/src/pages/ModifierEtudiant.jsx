@@ -32,7 +32,7 @@ export default function ModifierEtudiant() {
     setDialog(false);
     setSaving(true);
     try {
-      await axios.put(`${API_URL}api/etudiant/${numRt}`, etudiant);
+      await axios.put(`${API_URL}/api/etudiant/${numRt}`, etudiant);
       toast('Modifications enregistrées avec succès !', 'success');
       navigate('/liste');
     } catch {
