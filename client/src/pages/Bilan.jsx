@@ -7,6 +7,11 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  BarChart,
+  Bar,
+  CartesianGrid,
+  YAxis,
+  XAxis,
 } from "recharts";
 import API_URL from "../config";
 
@@ -30,6 +35,20 @@ export default function Bilan() {
   const data = [
     { name: "Admis", value: parseInt(stats.admis) },
     { name: "Redoublants", value: parseInt(stats.redoublants) },
+  ];
+  const dataTest = [
+    {
+      name: "Cls",
+      Moyenne: Number(parseFloat(stats.moy_classe).toFixed(2)),
+    },
+    {
+      name: "Max",
+      Moyenne: Number(parseFloat(stats.max_moy).toFixed(2)),
+    },
+    {
+      name: "Min",
+      Moyenne: Number(parseFloat(stats.min_moy).toFixed(2)),
+    },
   ];
 
   const total = data.reduce((sum, d) => sum + d.value, 0);
@@ -116,7 +135,7 @@ export default function Bilan() {
       </div>
 
       {/* Cartes stats */}
-      <div className="grid grig-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         {statCards.map((card) => (
           <div
             key={card.label}
@@ -171,7 +190,6 @@ export default function Bilan() {
             </ResponsiveContainer>
           </div>
 
-          {/* Stats texte */}
           <div className="flex flex-col gap-4 min-w-32">
             <div className="text-center p-4 bg-blue-50 rounded-xl border border-blue-100">
               <div className="text-2xl font-bold text-blue-600">
@@ -197,6 +215,58 @@ export default function Bilan() {
                 %
               </div>
             </div>
+          </div>
+        </div>
+        {/* Bar chart */}
+        <div className="mt-8 bg-slate-50 border border-slate-100 rounded-2xl p-5">
+          <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">
+            Analyse des moyennes
+          </h3>
+
+          <div className="w-full lg:flex-1 h-[260px] sm:h-[320px] -ml-8">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={dataTest}
+                margin={{
+                  top: 20,
+                  right: 20,
+                  left: 0,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
+                  stroke="#e2e8f0"
+                />
+
+                <XAxis
+                  dataKey="name"
+                  tick={{ fill: "#64748b", fontSize: 12 }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+
+                <YAxis
+                  domain={[0, 20]}
+                  tick={{ fill: "#64748b", fontSize: 12 }}
+                  axisLine={false}
+                  tickLine={false}
+                />
+
+                <Tooltip
+                  contentStyle={{
+                    borderRadius: "12px",
+                    border: "1px solid #e2e8f0",
+                    backgroundColor: "#fff",
+                  }}
+                />
+
+                <Legend />
+
+                <Bar dataKey="Moyenne" radius={[10, 10, 0, 0]} fill="#3b82f6" />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </div>
